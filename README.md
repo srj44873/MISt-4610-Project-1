@@ -6,7 +6,7 @@ Team Name: Terry Teas
 
 
 Sydney James: [@srj44873](https://github.com/srj44873)
-Mary Earnhart: [marykearhart](https://github.com/marykeahart)
+Mary Earnhart: [marykearhart](https://github.com/marykearhart)
 Derek Quinlan: [derekq111](https://github.com/derekq111)
 Regan Taylor: [nrt19057](https://github.com/nrt19057)
 
