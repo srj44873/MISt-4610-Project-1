@@ -1,29 +1,6 @@
-# MISt-4610-Project-1
-
-Group Number: 5
-
-Team Name: Terry Teas
-
-Team Members:
-
-Sydney James: [@srj44873](https://github.com/srj44873)
-Mary Earnhart: [marykearhart](https://github.com/marykearhart)
-Derek Quinlan: [derekq111](https://github.com/derekq111)
-Regan Taylor: [nrt19057](https://github.com/nrt19057)
-
-Problem Description: 
-
-Our group handled the task of creating a data model for our franchise "Loaded Tea" company. Our loaded tea company is operated in variious locations around the US, each with their own employees lead by department chairs in Human Resources and Franchise Coordination. Additionally, our model accounts for the unformation stored on the customers at each location, their eligibility for military and student discounts, and the supplier-to-business coordination of supply orders aside from those purchases made directly from the location by the customer. Our overarching goals of this project were to accurately display each relationship between entities, create sample data tables for each entity and its attributes, and finally test out various queries relevant tov the business operations of our organization.
-
-Data Model: 
-
-Our data model focuses on the overaching Loaded Tea comapny as a franchise with many different locations. We started with our customer entity, 
-
 # Team Name
 
 21479 Group 5
-
-
 
 
 ## Team Members
@@ -34,6 +11,7 @@ Mary Earhart -  [@marykearhart](https://github.com/marykearhart)
 Derek Quinlan - [@derekq111](https://github.com/derekq111)
 
 Regan Taylor - [@nrt19057](https://github.com/nrt19057)
+
 ## Problem Description
 Our data model is for a fictional company called "Terry Teas" the company is a tea shop selling nutrition teas. The database is for the day to day operation of the company. The database includes tables such as Customers, Orders, OrderDetails, LoyaltyPrograms, etc. Our database would help a manager visualise simple things such as listing all customer names, or a more complex query such as total quantity sold for each product. 
 
