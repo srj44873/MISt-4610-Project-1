@@ -1,6 +1,9 @@
+
 # Team Name
 
 21479 Group 5
+
+
 
 
 ## Team Members
@@ -11,59 +14,50 @@ Mary Earhart -  [@marykearhart](https://github.com/marykearhart)
 Derek Quinlan - [@derekq111](https://github.com/derekq111)
 
 Regan Taylor - [@nrt19057](https://github.com/nrt19057)
-
 ## Problem Description
-Our data model is for a fictional company called "Terry Teas" the company is a tea shop selling nutrition teas. The database is for the day to day operation of the company. The database includes tables such as Customers, Orders, OrderDetails, LoyaltyPrograms, etc. Our database would help a manager visualise simple things such as listing all customer names, or a more complex query such as total quantity sold for each product. 
+  Our group handled the task of creating a data model for our franchise "Loaded Tea" company. Our business is operated in various locations around the US, each with their own employees lead by department chairs in specialized Human Resources. Additionally, our model accounts for the information stored on the customers at each location, their eligibility for military and student discounts, and the supplier-to-business coordination of supply orders aside from those purchases made by the customers either online or in person. Our overarching goals of this project were to accurately display each relationship between entities, create sample data tables for each entity and its attributes, and test out various queries relevant to the business operations of our organization.
 
 ## Data Model
-<img width="1060" height="413" alt="Screenshot 2026-03-29 at 4 11 20 PM" src="https://github.com/user-attachments/assets/47a9a5a7-d151-457f-a64f-f658ee9c2f93" />
+We started off our data model by creating a customer entity, indicating all of the relevant data stored on our customers ranging from atibutes of name, address, and contact information. For each customer, there are many sales, which we indicated through a one to many relationship with our sales entity. 
+  
+  The Sales entity displays data on the date, price and the payment method chosen by the customer for each sale. Additionally, the Sales entity contains two foreign keys- CustomerID and ProgramID- to represent the customers making each sale and whether they qualified for any discount programs (Military or Student). This then brings is to the Discount Programs table, which contains the program name and the percentage discount for each program offered for each. In this scenario, our company only offers Military and Student discounts, with military granting a 30% decrease in prices and Student granting a 20% decrease. For the sake of the complexity of our data model, we assume that all customers' sales will apply for one of these discounts. This Discount Program table also connects to the customers table as each customer can qualify for many discount programs in a one-to-many relationship.
+  
+  Similar to the relationship between sales and customers, Customer Orders and Customers also experience a one-to-many relationship as each customer can have many orders, but each order can only belong to one customer. This entity is differentiated from the sales table as those purchases were made online rather than at a specific franchise location. As an individual entity, Customer Orders stores the monetary amount of each order and the date the order was placed. 
 
-Explanation of Data Model:
-Our data model represents the structure of a retail and inventory management system that tracks customers, sales, products, suppliers, employees, and store operations.
+  Considering that many orders can contain many products, we developed the associative identity labeled Customer Order Details to indicate this relationship between Customer Orders and Products. In this entity, we have the product ID and order ID for each, as well as the shipping date, status of the order, price, and quantity of items in the order. For the sake of this data model, we assume that the customer orders all have a scheduled date of which they will be shipped out, even if they are still being processed and have not yet shipped. We also assume that orders which are cancelled will not appear in the table any longer, and that customers are limited to the purchase of 20 items when choosing to by online instead of in person.
+  
+  Next is our product entity which keeps track of the different flavors and types of drinks offered by our company, specifically either Loaded Teas or Beauty Shakes in various fruity flavors. This table indicates a many-to-many relationship with the sales table as many sales can contain many different products, and vice versa. This relationship is held together by an associative identity labeled product line. This entity is non-identifiable and serves as a holding place for each identifiable entity's foreign keys.
 
-At the core of the model is the Customers entity, which stores personal information such as name, contact details, and address. Each customer can make multiple purchases, which is why there is a one-to-many relationship between the Customers and Sales entities.
+  Many products in the product entity can also go to many store locations, hence the many-to-many connection between Store Location and Products. Since our Loaded Tea company functions as a franchise with many different locations across the United States, the Store Locations entity is comprised of attributes including each store's area code, city, and state to differentiate between each shop. This entity is also connected with the Employees table signifying that many employees can work at one store location, while each employee can only work at one location. 
+  
+  Together these two tables form the associative identity labeled "Supplier Orders", which contains the foreign keys of each individual entity with no other salient attributes. For completeness, we specify Supplier Orders as to differentiate from orders placed by the customers that come directly from the stock at the store locations versus the franchises purchasing more inventory to sell to customers. But the supplies in these orders must come from a home base, which brings us to our Supplier entity containing individual supplier IDs for each company, as well as their company name.
 
-The Sales entity records each transaction, including the sale price, date, and payment method. Because a single sale can involve multiple products, we created an associative entity called Product Line, which connects Sales and Products. This resolves the many-to-many relationship between Sales and Products, allowing each sale to include multiple products and each product to appear in multiple sales.
+  Last, the Employees entity is the most complex of our entities, containing information on each employee's name, email, department name, and foreign keys identifying their respective store location and department chair. The department chair identifier is represented by a one-to-many recursive relationship, as one department chair can observe many employees. We will assume in this case that each employee contains a departmentChair ID which refers to the department chair which oversees their work at their respective location.
 
-The Products entity stores details about each item, including product name and type. Products are supplied by vendors, which is represented through the Suppliers entity. Since suppliers can provide multiple products and products can come from multiple suppliers, we use the Supplier Orders associative entity to connect Suppliers and Products. This table also links to Store Location, indicating where products are being delivered.
+<img width="952" height="441" alt="Screenshot 2026-03-30 at 11 27 29 AM" src="https://github.com/user-attachments/assets/678fd0a4-afc8-430f-9e32-6d5b40012a24" />
 
-The Store Location entity represents different store branches, including attributes such as city and state. Supplier Orders are tied to specific locations, establishing a one-to-many relationship between Store Location and Supplier Orders.
-
-Customer purchasing activity is further detailed through the Customer Orders and Customer Order Details entities. Customer Orders represent overall orders placed by customers, while Customer Order Details break down each order into specific products, quantities, shipping dates, and statuses. This creates a structured relationship where:
-- One customer can have many orders
-- One order can have many order details (products)
-
-To manage promotions, we included a Discount Programs entity. This entity links customers, sales, and specific discount programs, allowing discounts to be applied to particular transactions. This creates relationships between Customers, Sales, and Discount Programs to track promotional usage.
-
-On the organizational side, the Employees entity stores employee information such as name, email, and department. Each employee belongs to a Department, forming a many-to-one relationship (many employees per department). Additionally, the Employees table includes a self-referencing relationship (via PreviousChair), which models succession or reporting structure within the organization.
-
-Finally, the Department entity defines different functional areas within the company, such as sales, management, or operations.
-
-Overall, this data model efficiently captures the relationships between customers, transactions, products, suppliers, and employees, while resolving complex many-to-many relationships through associative entities like Product Line, Supplier Orders, and Customer Order Details.
 ## Data Dictionary
-<img width="641" height="496" alt="Screenshot 2026-03-29 at 4 27 11 PM" src="https://github.com/user-attachments/assets/87ed6a7b-8bb0-4e4d-9598-0fc36a83eaca" />
+<img width="644" height="495" alt="Screenshot 2026-03-31 at 8 55 28 AM" src="https://github.com/user-attachments/assets/a159e98d-d290-429a-9012-96ed3f97e633" />
 
-<img width="660" height="406" alt="Screenshot 2026-03-29 at 4 27 44 PM" src="https://github.com/user-attachments/assets/eb48391b-9752-47ca-a987-a6ded5e32890" />
+<img width="645" height="390" alt="Screenshot 2026-03-31 at 8 55 49 AM" src="https://github.com/user-attachments/assets/c4bcef76-d1e1-4685-8a57-e3bbb222e99e" />
 
-<img width="652" height="440" alt="Screenshot 2026-03-29 at 4 25 25 PM" src="https://github.com/user-attachments/assets/3300f454-2628-4774-832d-78c5da00fea1" />
+<img width="635" height="439" alt="Screenshot 2026-03-31 at 8 56 04 AM" src="https://github.com/user-attachments/assets/25a52676-9995-4288-8916-3987ff47a638" />
 
-<img width="648" height="264" alt="Screenshot 2026-03-29 at 4 25 57 PM" src="https://github.com/user-attachments/assets/90f29817-b8ce-4632-bb81-f2c1181f3fd2" />
+<img width="637" height="409" alt="Screenshot 2026-03-31 at 8 56 40 AM" src="https://github.com/user-attachments/assets/944dd839-5eb4-4dc8-8ab9-798ca2b20c2b" />
 
-<img width="680" height="566" alt="Screenshot 2026-03-29 at 4 26 39 PM" src="https://github.com/user-attachments/assets/8ead3a2f-e988-4ded-a997-73f47b4c66b1" />
+<img width="661" height="714" alt="Screenshot 2026-03-31 at 8 57 51 AM" src="https://github.com/user-attachments/assets/69b60274-2930-42e7-b68a-aea048288005" />
 
-<img width="673" height="685" alt="Screenshot 2026-03-29 at 4 26 20 PM" src="https://github.com/user-attachments/assets/63f8986b-b936-4e76-9c21-830cc839aa62" />
+<img width="638" height="245" alt="Screenshot 2026-03-31 at 8 58 12 AM" src="https://github.com/user-attachments/assets/1057a2e0-3626-415f-a92a-e3b06161f629" />
 
-<img width="656" height="336" alt="Screenshot 2026-03-29 at 4 28 03 PM" src="https://github.com/user-attachments/assets/0b8bd174-71bf-406c-b746-5a77ca98df96" />
+<img width="642" height="285" alt="Screenshot 2026-03-31 at 8 58 31 AM" src="https://github.com/user-attachments/assets/534819ec-4d87-44e7-aa8c-d0f78cc0825e" />
 
-<img width="641" height="289" alt="Screenshot 2026-03-29 at 4 29 28 PM" src="https://github.com/user-attachments/assets/8644030b-9c52-47d1-9a65-352731a57021" />
+<img width="653" height="534" alt="Screenshot 2026-03-31 at 8 59 02 AM" src="https://github.com/user-attachments/assets/87a8301e-de7f-471b-b822-03efa64a1654" />
 
-<img width="642" height="430" alt="Screenshot 2026-03-29 at 4 29 48 PM" src="https://github.com/user-attachments/assets/00ad1f08-dbdf-4336-ab01-91adb75bb999" />
+<img width="651" height="373" alt="Screenshot 2026-03-31 at 8 59 27 AM" src="https://github.com/user-attachments/assets/b20f6558-0ca5-4833-aac1-ee23d480404d" />
 
-<img width="645" height="365" alt="Screenshot 2026-03-29 at 4 30 06 PM" src="https://github.com/user-attachments/assets/ff9e33d1-d6cb-41e4-be94-07d7e1d14c5d" />
+<img width="641" height="297" alt="Screenshot 2026-03-31 at 8 59 41 AM" src="https://github.com/user-attachments/assets/da65ded0-cd18-48cc-9df6-11b95a8a85f0" />
 
-<img width="643" height="302" alt="Screenshot 2026-03-29 at 4 30 29 PM" src="https://github.com/user-attachments/assets/c5a17fa4-2fda-4eed-8b50-e705278b1f6c" />
-
-<img width="659" height="248" alt="Screenshot 2026-03-29 at 4 30 49 PM" src="https://github.com/user-attachments/assets/acc3165a-544e-4fab-9658-6e9513fba186" />
+<img width="657" height="240" alt="Screenshot 2026-03-31 at 8 59 56 AM" src="https://github.com/user-attachments/assets/91820eaa-d4bd-48f4-9141-082ddd00b9d6" />
 
 ## Queries
 <img width="717" height="336" alt="Screenshot 2026-03-29 at 5 16 21 PM" src="https://github.com/user-attachments/assets/980bfdf3-5a8b-468f-bc49-639a2e572fc1" />
@@ -170,3 +164,4 @@ Natural Language Description:This query joins Suppliers, Supplier Orders, and St
 Managerial Relevance:Managers can evaluate supplier coverage across locations, identify over-reliance on certain suppliers, and detect gaps in supply chain distribution.
 
 ## Database Information
+Database Name: Group_21479_G5
